@@ -12,6 +12,7 @@ import codePush, { DownloadProgress, RemotePackage } from 'react-native-code-pus
 import Config from 'react-native-config'
 import FastImage from 'react-native-fast-image'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
+import { SafeAreaProvider } from 'react-native-safe-area-context'
 import AppContainer from './src/AppContainer'
 
 const queryClient = new QueryClient({
@@ -139,22 +140,24 @@ const App = () => {
   }, [storageColorSchemeValue, systemColorScheme])
 
   return (
-    <GestureHandlerRootView style={{ flex: 1 }}>
-      <ColorSchemeProvider initialColorScheme={initialColorScheme}>
-        <GlobalErrorBoundaryRegistry>
-          <AppSystemColorSwitcher />
-          <QueryClientProvider client={queryClient}>
-            <Suspense fallback={<GlobalSuspenseFallback />}>
-              <AuthContextProvider>
-                <BootSplashAwaiter>
-                  <AppContainer />
-                </BootSplashAwaiter>
-              </AuthContextProvider>
-            </Suspense>
-          </QueryClientProvider>
-        </GlobalErrorBoundaryRegistry>
-      </ColorSchemeProvider>
-    </GestureHandlerRootView>
+    <SafeAreaProvider>
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        <ColorSchemeProvider initialColorScheme={initialColorScheme}>
+          <GlobalErrorBoundaryRegistry>
+            <AppSystemColorSwitcher />
+            <QueryClientProvider client={queryClient}>
+              <Suspense fallback={<GlobalSuspenseFallback />}>
+                <AuthContextProvider>
+                  <BootSplashAwaiter>
+                    <AppContainer />
+                  </BootSplashAwaiter>
+                </AuthContextProvider>
+              </Suspense>
+            </QueryClientProvider>
+          </GlobalErrorBoundaryRegistry>
+        </ColorSchemeProvider>
+      </GestureHandlerRootView>
+    </SafeAreaProvider>
   )
 }
 

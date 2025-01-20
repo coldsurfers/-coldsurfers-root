@@ -1,6 +1,6 @@
 {
   "name": "@coldsurfers/billets-web",
-  "version": "1.0.31",
+  "version": "1.0.32",
   "scripts": {
     "build": "next build",
     "build:vercel": "npx vercel build --prod",
